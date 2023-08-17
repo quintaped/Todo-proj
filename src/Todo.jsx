@@ -32,6 +32,8 @@ export const Todo = (props) => {
     if (todo !== "") {
       setTodos([...todos, todo]);
       setTodo("");
+    } else {
+      alert("enter ToDo name!");
     }
   };
   const deleteTodo = (text) => {
@@ -39,6 +41,12 @@ export const Todo = (props) => {
       return todo !== text;
     });
     setTodos(newTodos);
+  };
+  const todoIsDone = () => {
+    const isDoneTodo = todos.filter((todo, index) => {
+      return console.log("dd");
+    });
+    setTodos(isDoneTodo);
   };
 
   return (
@@ -91,6 +99,7 @@ export const Todo = (props) => {
                     type="reset"
                     size="small"
                     variant="contained"
+                    onClick={onreset}
                   >
                     <RestartAltIcon />
                   </Button>
@@ -107,8 +116,8 @@ export const Todo = (props) => {
                 </Stack>
                 {todos.map((todo, index) => (
                   <div className="todo">
-                    <p key={index}>
-                      {/* <SummarizeIcon className="em" /> */}
+                    <p key={index} id="myTodo">
+                      <SummarizeIcon className="stick" />
                       {todo}
                       {"    "}
                       <Button
@@ -120,6 +129,14 @@ export const Todo = (props) => {
                         }}
                       >
                         <DeleteIcon />
+                      </Button>
+                      <Button
+                        cclassName="em"
+                        size="small"
+                        onClick={() => {
+                          todoIsDone(todo);
+                        }}
+                      >
                         <CheckIcon />
                       </Button>
                     </p>

@@ -101,8 +101,19 @@
   
 }
 .em{
-  position: absolute;
+  
   left: 30;
+}
+.isDoneTodo{
+  border-style: solid black;
+  color: black;
+  border-radius: 6px;
+  min-width: 600px;
+  justify-content: center;
+  align-items: center;
+}
+.stick{
+  padding: 8px 12px;
 }
 @keyframes App-logo-spin {
   from {
