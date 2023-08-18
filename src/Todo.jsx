@@ -2,7 +2,13 @@ import React from "react";
 import { useState } from "react";
 import "./App.css";
 import Button from "@mui/material/Button";
-import { ListItem, Stack, TextField, ThemeProvider } from "@mui/material";
+import {
+  ListItem,
+  Stack,
+  TextField,
+  ThemeProvider,
+  Toolbar,
+} from "@mui/material";
 import { NewToDo } from "./NewTodo";
 import { createTheme } from "@mui/material/styles";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
@@ -13,11 +19,10 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 export const Todo = (props) => {
   const [todos, setTodos] = useState([]);
-  const [todo, setTodo] = useState("");
-  const onClick = (e) => console.log("l");
-  const { defaultValue = "" } = props;
-  const [value, setValue] = useState(defaultValue);
-  const [isDone, setIsDone] = useState(false);
+  const [todo, setTodo] = useState("t");
+
+  const [value, setValue] = useState("");
+  const [disabled, setDisabled] = useState(false);
   const [doneTodos, setDoneTodos] = useState([]);
   const [doneTodo, setDoneTodo] = useState("");
 
@@ -29,11 +34,13 @@ export const Todo = (props) => {
       },
     },
   });
-
-  const addTodo = () => {
+  const onClick = (e) => console.log("l");
+  const addTodo = (e) => {
     if (todo !== "") {
+      setTodo(e.target.value);
       setTodos([...todos, todo]);
-      setTodo("");
+
+      console.log(todos);
     } else {
       alert("enter ToDo name!");
     }
@@ -44,45 +51,45 @@ export const Todo = (props) => {
     });
     setTodos(newTodos);
   };
-  const del = (e) => {
-    if (todo === isDone) {
-      console.log("i");
+  const del = () => {
+    if (doneTodos.length < 0) {
+      setDisabled(true);
+    } else {
+      setDisabled(false);
     }
+    setDoneTodos([]);
   };
   const todoIsDone = (index) => {
-    const curTodo = todos[index];
-    // todos[index] = setIsDone(true);
-    setIsDone(true);
-    console.log(curTodo + "  is done");
-    console.log(isDone);
+    setDoneTodo(todos[index]);
+    setDoneTodos([...doneTodos, doneTodo]);
+
+    todos.splice(index, 0);
+    console.log(todos[index]);
   };
-  const todoUnDo = () => {
-    setIsDone(false);
-  };
+
   const onReset = () => {
-    setIsDone(false);
     setTodos([]);
+    setDoneTodos([]);
   };
   return (
     <div>
       <ThemeProvider theme={theme}>
         <form>
           <Stack className="stack" spacing={2} direction="row">
-            <div className="input-wrapper">
-              <input
-                type="text"
-                name="todo"
-                className="newTodo"
-                value={todo}
-                placeholder="Create a new todo"
-                onChange={(e) => {
-                  setTodo(e.target.value);
-                }}
-              />{" "}
-            </div>
+            <input
+              type="text"
+              name="todo"
+              className="newTodo"
+              value={todo}
+              placeholder="Create a new todo"
+              onChange={(e) => {
+                setTodo(e.target.value);
+              }}
+            />{" "}
             <Button
               variant="contained"
               color="ochre"
+              type="button"
               className="submit"
               onClick={addTodo}
             >
@@ -98,7 +105,7 @@ export const Todo = (props) => {
             alignItems="center"
             spacing={2}
           >
-            {todos?.length > 0 ? (
+            {todos?.length > 0 || doneTodos?.length > 0 ? (
               <ul className="todo-list">
                 <Stack
                   className="stack-res"
@@ -120,7 +127,7 @@ export const Todo = (props) => {
                   <Button
                     variant="contained"
                     className="reset"
-                    type="delete"
+                    type="button"
                     size="small"
                     onClick={del}
                     color="ochre"
@@ -128,53 +135,49 @@ export const Todo = (props) => {
                     <DeleteIcon />
                   </Button>
                 </Stack>
-
                 {todos.map((todo, index) => (
                   <div>
-                    {!isDone ? (
-                      <div className="todo">
-                        <p key={index}>
-                          <SummarizeIcon className="stick" />
-                          {todo}
-                          {"    "}
+                    <p key={index} className="todo">
+                      <SummarizeIcon className="stick" />
+                      {todo}
+                      {"    "}
 
-                          <DeleteIcon
-                            className="del"
-                            type="button"
-                            size="small"
-                            onClick={() => {
-                              deleteTodo(todo);
-                            }}
-                          />
-                          <CheckIcon
-                            className="em"
-                            type="button"
-                            size="small"
-                            onClick={() => {
-                              todoIsDone(index);
-                            }}
-                          />
-                        </p>
-                      </div>
-                    ) : (
-                      <div className="Done-todo">
-                        <p key={index}>
-                          {" "}
-                          {todo}
-                          <SummarizeIcon className="stick1" />
-                          <CheckIcon
-                            className="undo"
-                            type="button"
-                            size="small"
-                            onClick={() => {
-                              todoUnDo();
-                            }}
-                          />
-                        </p>
-                      </div>
-                    )}
+                      <DeleteIcon
+                        className="del"
+                        type="button"
+                        size="small"
+                        onClick={() => {
+                          deleteTodo(todo);
+                        }}
+                      />
+                      <CheckIcon
+                        className="em"
+                        type="button"
+                        size="small"
+                        onClick={(e) => {
+                          todoIsDone(index);
+                        }}
+                      />
+                    </p>
                   </div>
                 ))}
+                <>
+                  {doneTodos.map((doneTodo, index) => (
+                    <div>
+                      <p key={index} className="Done-todo">
+                        <SummarizeIcon className="stick1" />
+                        {doneTodo}
+
+                        <CheckIcon
+                          className="undo"
+                          type="button"
+                          onClick={onClick}
+                          size="small"
+                        />
+                      </p>
+                    </div>
+                  ))}
+                </>
               </ul>
             ) : (
               <div>
@@ -183,7 +186,6 @@ export const Todo = (props) => {
             )}
           </Stack>
         </form>
-        <p>{value}</p>
       </ThemeProvider>
     </div>
   );

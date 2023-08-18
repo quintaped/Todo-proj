@@ -5,12 +5,11 @@ import { Todo } from "./Todo";
 
 function App() {
   return (
-    <div>
-      <body className="body">
+    <div className="body">
+      <body>
         <p className="p">
           <h3>Todo App</h3>
         </p>
-
         <form className="add">
           <Todo />
         </form>

@@ -15,14 +15,13 @@
 
 .body {
   text-align: center;
-  background-color: #0f254c;
-  min-height: 100vh;
-  /* display: flex; */
+  height: 100%;
   flex-direction: column;
-  /* align-items: center; */
-  /* justify-content: center; */
   font-size: calc(20px + 2vmin);
   color: white;
+}
+body{
+  background-color: #0f254c;
 }
 .header{
   background-color: #19315d;
@@ -32,11 +31,7 @@
   text-indent: 3ch;
   
 }
-.p{
-  margin-block-start: 0;
-  margin-block-end: 0;
-  padding-top: 3px;
-}
+
 .reset{
   display: flex;
   width: 50px;
@@ -69,23 +64,22 @@
  padding-top: 10px;
 }
 .newTodo{
-  height: 25px;
-  padding: 8px;
-  border-radius: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.3rem;
+  height: 30px;
+  padding: 10px 15px;
+  width: 25%;
 }
-.myTodo{
- 
-  padding-top: 2px ;
-  padding-bottom: 2px;
-  
-}
+
 .submit{
-  
-  height: 40px;
-  margin-top: 20px;
-  padding: 15px;
-  margin-bottom: 50px;
-  border-radius: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    height: 50px;
+    margin-left: 10px;
+    padding: 10px 15px;
 }
 .stack-res{
   display: flex;
@@ -102,31 +96,35 @@
   color: black;
   border-radius: 10px;
   min-width: 600px;
-  min-height: 20px;
+  
   margin-top: 20px;
   margin-bottom: 20px;
   justify-content: center;
   align-items: center;
   text-align: center;
+ 
   position: relative;
 }
 .Done-todo{
-  background-color: #e2a0a0;
-  color: white;
-  border-radius: 10px;
-  min-width: 600px;
-  min-height: 20px;
-  margin-top: 20px;
+  border: 2px solid #555;
+    border-radius: 5px;
+  background-color: initial;
+  border-color: gray;
+  
+    color: gray;  
+    border-radius: 10px;
+    min-width: 600px;
+    margin-top: 20px;
   margin-bottom: 20px;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  position: relative;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+   
+    position: relative;
+  
 }
 .undo{
   position: absolute;
-  width: 20px;
-  height: 20px;
   right: 20px;
   color: rgb(198, 0, 0);
   cursor: pointer;
@@ -134,8 +132,7 @@
 }
 .em{
   position: absolute;
-  width: 20px;
-  height: 20px;
+  
   right: 20px;
   color: rgb(42, 117, 92);
   cursor: pointer;
@@ -150,26 +147,16 @@
   color: lightskyblue;
   cursor: pointer;
 }
-.isDoneTodo{
-  border-style: solid black;
-  color: black;
-  background-color: transparent;
-  border-radius: 6px;
-  min-width: 600px;
-  justify-content: center;
-  align-items: center;
-}
+
 .stick{
-  width: 40px;
-  height: 40px;
+  
   position: absolute;
   top: 10px;
   left: 20px;
   color: rgb(42, 117, 92);
 }
 .stick1{
-  width: 40px;
-  height: 40px;
+  
   position: absolute;
   top: 10px;
   left: 20px;
