@@ -73,6 +73,12 @@
   padding: 8px;
   border-radius: 10px;
 }
+.myTodo{
+ 
+  padding-top: 2px ;
+  padding-bottom: 2px;
+  
+}
 .submit{
   
   height: 40px;
@@ -94,26 +100,86 @@
 .todo{
   background-color: #fff;
   color: black;
-  border-radius: 6px;
+  border-radius: 10px;
   min-width: 600px;
+  min-height: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
   justify-content: center;
   align-items: center;
-  
+  text-align: center;
+  position: relative;
+}
+.Done-todo{
+  background-color: #e2a0a0;
+  color: white;
+  border-radius: 10px;
+  min-width: 600px;
+  min-height: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+.undo{
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  right: 20px;
+  color: rgb(198, 0, 0);
+  cursor: pointer;
+  top: 10px;
 }
 .em{
-  
-  left: 30;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  right: 20px;
+  color: rgb(42, 117, 92);
+  cursor: pointer;
+  top: 10px;
+}
+.del{
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 10px;
+  right: 50px;
+  color: lightskyblue;
+  cursor: pointer;
 }
 .isDoneTodo{
   border-style: solid black;
   color: black;
+  background-color: transparent;
   border-radius: 6px;
   min-width: 600px;
   justify-content: center;
   align-items: center;
 }
 .stick{
-  padding: 8px 12px;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  color: rgb(42, 117, 92);
+}
+.stick1{
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  color: rgb(240, 240, 240);
+}
+.name{
+  height: 20px;
+  position: absolute;
+ 
+  
 }
 @keyframes App-logo-spin {
   from {

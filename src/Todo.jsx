@@ -9,15 +9,17 @@ import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SummarizeIcon from "@mui/icons-material/Summarize";
 import CheckIcon from "@mui/icons-material/Check";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 export const Todo = (props) => {
   const [todos, setTodos] = useState([]);
   const [todo, setTodo] = useState("");
-  const [disabled, setDisabled] = useState(true);
   const onClick = (e) => console.log("l");
   const { defaultValue = "" } = props;
   const [value, setValue] = useState(defaultValue);
-  const onChange = (e) => setValue(e.target.value);
+  const [isDone, setIsDone] = useState(false);
+  const [doneTodos, setDoneTodos] = useState([]);
+  const [doneTodo, setDoneTodo] = useState("");
 
   const theme = createTheme({
     palette: {
@@ -42,13 +44,25 @@ export const Todo = (props) => {
     });
     setTodos(newTodos);
   };
-  const todoIsDone = () => {
-    const isDoneTodo = todos.filter((todo, index) => {
-      return console.log("dd");
-    });
-    setTodos(isDoneTodo);
+  const del = (e) => {
+    if (todo === isDone) {
+      console.log("i");
+    }
   };
-
+  const todoIsDone = (index) => {
+    const curTodo = todos[index];
+    // todos[index] = setIsDone(true);
+    setIsDone(true);
+    console.log(curTodo + "  is done");
+    console.log(isDone);
+  };
+  const todoUnDo = () => {
+    setIsDone(false);
+  };
+  const onReset = () => {
+    setIsDone(false);
+    setTodos([]);
+  };
   return (
     <div>
       <ThemeProvider theme={theme}>
@@ -99,7 +113,7 @@ export const Todo = (props) => {
                     type="reset"
                     size="small"
                     variant="contained"
-                    onClick={onreset}
+                    onClick={onReset}
                   >
                     <RestartAltIcon />
                   </Button>
@@ -108,38 +122,57 @@ export const Todo = (props) => {
                     className="reset"
                     type="delete"
                     size="small"
-                    onClick={deleteTodo}
+                    onClick={del}
                     color="ochre"
                   >
                     <DeleteIcon />
                   </Button>
                 </Stack>
+
                 {todos.map((todo, index) => (
-                  <div className="todo">
-                    <p key={index} id="myTodo">
-                      <SummarizeIcon className="stick" />
-                      {todo}
-                      {"    "}
-                      <Button
-                        cclassName="em"
-                        type="delete"
-                        size="small"
-                        onClick={() => {
-                          deleteTodo(todo);
-                        }}
-                      >
-                        <DeleteIcon />
-                      </Button>
-                      <Button
-                        cclassName="em"
-                        size="small"
-                        onClick={() => {
-                          todoIsDone(todo);
-                        }}
-                      >
-                        <CheckIcon />
-                      </Button>
-                    </p>
+                  <div>
+                    {!isDone ? (
+                      <div className="todo">
+                        <p key={index}>
+                          <SummarizeIcon className="stick" />
+                          {todo}
+                          {"    "}
+
+                          <DeleteIcon
+                            className="del"
+                            type="button"
+                            size="small"
+                            onClick={() => {
+                              deleteTodo(todo);
+                            }}
+                          />
+                          <CheckIcon
+                            className="em"
+                            type="button"
+                            size="small"
+                            onClick={() => {
+                              todoIsDone(index);
+                            }}
+                          />
+                        </p>
+                      </div>
+                    ) : (
+                      <div className="Done-todo">
+                        <p key={index}>
+                          {" "}
+                          {todo}
+                          <SummarizeIcon className="stick1" />
+                          <CheckIcon
+                            className="undo"
+                            type="button"
+                            size="small"
+                            onClick={() => {
+                              todoUnDo();
+                            }}
+                          />
+                        </p>
+                      </div>
+                    )}
                   </div>
                 ))}
               </ul>
