@@ -9,7 +9,7 @@ import {
   ThemeProvider,
   Toolbar,
 } from "@mui/material";
-import { NewToDo } from "./NewTodo";
+
 import { createTheme } from "@mui/material/styles";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -19,12 +19,9 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 export const Todo = (props) => {
   const [todos, setTodos] = useState([]);
-  const [todo, setTodo] = useState("t");
-
-  const [value, setValue] = useState("");
-  const [disabled, setDisabled] = useState(false);
+  const [todo, setTodo] = useState("");
   const [doneTodos, setDoneTodos] = useState([]);
-  const [doneTodo, setDoneTodo] = useState("");
+  const [doneTodo, setDoneTodo] = useState(todo);
 
   const theme = createTheme({
     palette: {
@@ -34,13 +31,11 @@ export const Todo = (props) => {
       },
     },
   });
-  const onClick = (e) => console.log("l");
+
   const addTodo = (e) => {
     if (todo !== "") {
       setTodo(e.target.value);
       setTodos([...todos, todo]);
-
-      console.log(todos);
     } else {
       alert("enter ToDo name!");
     }
@@ -52,19 +47,25 @@ export const Todo = (props) => {
     setTodos(newTodos);
   };
   const del = () => {
-    if (doneTodos.length < 0) {
-      setDisabled(true);
-    } else {
-      setDisabled(false);
-    }
     setDoneTodos([]);
   };
-  const todoIsDone = (index) => {
-    setDoneTodo(todos[index]);
-    setDoneTodos([...doneTodos, doneTodo]);
-
-    todos.splice(index, 0);
-    console.log(todos[index]);
+  const todoIsDone = (text, index, id) => {
+    const curElem = todos[index];
+    doneTodos.push(curElem);
+    const newTodos = todos.filter((todo) => {
+      return todo !== text;
+    });
+    setTodos(newTodos);
+    console.log(id[index]);
+  };
+  const onClick = (text, index) => {
+    const curElem = doneTodos[index];
+    todos.push(curElem);
+    const newTodos = doneTodos.filter((todo) => {
+      return todo !== text;
+    });
+    setDoneTodos(newTodos);
+    console.log(curElem);
   };
 
   const onReset = () => {
@@ -126,7 +127,7 @@ export const Todo = (props) => {
                   </Button>
                   <Button
                     variant="contained"
-                    className="reset"
+                    className="delete"
                     type="button"
                     size="small"
                     onClick={del}
@@ -135,9 +136,9 @@ export const Todo = (props) => {
                     <DeleteIcon />
                   </Button>
                 </Stack>
-                {todos.map((todo, index) => (
-                  <div>
-                    <p key={index} className="todo">
+                {todos.map((todo, index, id) => (
+                  <div className="td">
+                    <p key={index} id="`${index}`" className="todo">
                       <SummarizeIcon className="stick" />
                       {todo}
                       {"    "}
@@ -155,7 +156,7 @@ export const Todo = (props) => {
                         type="button"
                         size="small"
                         onClick={(e) => {
-                          todoIsDone(index);
+                          todoIsDone(todo, index, id);
                         }}
                       />
                     </p>
@@ -163,15 +164,17 @@ export const Todo = (props) => {
                 ))}
                 <>
                   {doneTodos.map((doneTodo, index) => (
-                    <div>
-                      <p key={index} className="Done-todo">
+                    <div className="td">
+                      <p key={index} id="`${index}`" className="Done-todo">
                         <SummarizeIcon className="stick1" />
                         {doneTodo}
 
                         <CheckIcon
                           className="undo"
                           type="button"
-                          onClick={onClick}
+                          onClick={(e) => {
+                            onClick(doneTodo, index);
+                          }}
                           size="small"
                         />
                       </p>

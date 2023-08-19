@@ -38,6 +38,13 @@ body{
   height: 50px;
   padding-top: 20px;
 }
+.delete{
+  display: flex;
+  width: 50px;
+  height: 50px;
+  padding-top: 20px;
+}
+
 .add{
  margin-top: 50px;
   min-height: 15vh;
@@ -95,6 +102,7 @@ body{
   background-color: #fff;
   color: black;
   border-radius: 10px;
+  /* border-radius: 10px;
   min-width: 600px;
   
   margin-top: 20px;
@@ -103,25 +111,28 @@ body{
   align-items: center;
   text-align: center;
  
-  position: relative;
+  position: relative; */
 }
 .Done-todo{
   border: 2px solid #555;
-    border-radius: 5px;
+    border-radius: 10px;
   background-color: initial;
   border-color: gray;
-  
     color: gray;  
-    border-radius: 10px;
-    min-width: 600px;
-    margin-top: 20px;
-  margin-bottom: 20px;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-   
+ 
     position: relative;
+}
+.td{
+  border-radius: 20px;
+  min-width: 600px;
   
+  margin-top: 20px;
+  margin-bottom: 20px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+ 
+  position: relative; 
 }
 .undo{
   position: absolute;
@@ -134,9 +145,12 @@ body{
   position: absolute;
   
   right: 20px;
-  color: rgb(42, 117, 92);
+  color: rgb(170, 168, 168);
   cursor: pointer;
   top: 10px;
+}
+.em:hover{
+  color: rgb(33, 223, 33);
 }
 .del{
   position: absolute;
@@ -146,6 +160,9 @@ body{
   right: 50px;
   color: lightskyblue;
   cursor: pointer;
+}
+.del:hover{
+  color: red;
 }
 
 .stick{
